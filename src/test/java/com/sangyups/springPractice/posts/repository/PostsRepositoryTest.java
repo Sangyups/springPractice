@@ -71,4 +71,31 @@ class PostsRepositoryTest {
 
     assertThat(post.getCreatedAt()).isAfter(expectDateTime);
   }
+
+  @Test
+  void post를_최신순으로_가져오기() {
+    // given
+    Posts post1 = Posts.builder()
+        .author("")
+        .title("")
+        .content("")
+        .build();
+
+    Posts post2 = Posts.builder()
+        .author("")
+        .title("")
+        .content("")
+        .build();
+
+    postsRepository.save(post1);
+    postsRepository.save(post2);
+
+    // when
+    List<Posts> postsList = postsRepository.findAllByDesc();
+    Posts resultPost1 = postsList.get(0);
+    Posts resultPost2 = postsList.get(1);
+
+    // then
+    assertThat(resultPost1.getCreatedAt()).isAfter(resultPost2.getCreatedAt());
+  }
 }
