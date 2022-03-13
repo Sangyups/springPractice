@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.sangyups.springPractice.posts.domain.Posts;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -46,5 +47,28 @@ class PostsRepositoryTest {
     assertThat(post.getAuthor()).isEqualTo(expectAuthor);
     assertThat(post.getTitle()).isEqualTo(expectTitle);
     assertThat(post.getContent()).isEqualTo(expectContent);
+  }
+
+  @Test
+  void BaseTimeEntity_추가() {
+    // given
+    LocalDateTime expectDateTime = LocalDateTime.now();
+    final String expectAuthor = "Sangyup";
+    final String expectTitle = "Title";
+    final String expectContent = "content";
+
+    postsRepository.save(Posts.builder()
+        .author(expectAuthor)
+        .title(expectTitle)
+        .content(expectContent)
+        .build());
+
+    // when
+    List<Posts> postsList = postsRepository.findAll();
+
+    // then
+    Posts post = postsList.get(0);
+
+    assertThat(post.getCreatedAt()).isAfter(expectDateTime);
   }
 }
