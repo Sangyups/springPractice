@@ -1,5 +1,6 @@
 package com.sangyups.springPractice.posts.domain;
 
+import com.sangyups.springPractice.common.BaseTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
   @Id
   @GeneratedValue
